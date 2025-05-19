@@ -37,7 +37,7 @@ public class RewardNetworkTests {
 		// Create application context from TestInfrastructureConfig,
 		// which also imports RewardsConfig
 		ApplicationContext context = SpringApplication.run(TestInfrastructureConfig.class);
-		
+
 		// Get rewardNetwork bean from the application context
 		rewardNetwork = context.getBean(RewardNetwork.class);
 	}
