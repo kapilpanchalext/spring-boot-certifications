@@ -1,5 +1,6 @@
 package rewards.internal;
 
+import common.datetime.SimpleDate;
 import common.money.MonetaryAmount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -13,6 +14,8 @@ import rewards.internal.reward.RewardRepository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.sql.Date;
 
 /**
  * Unit tests for the RewardNetworkImpl application logic.
@@ -32,7 +35,7 @@ public class RewardNetworkImplTests {
 	 */
 	private RewardNetworkImpl rewardNetwork;
 
-	// TODO-09: Review the test setup
+	// TODO1-09: Review the test setup
 	@BeforeEach
 	public void setUp() throws Exception {
 		// Create stubs to facilitate fast in-memory testing with
@@ -43,13 +46,17 @@ public class RewardNetworkImplTests {
 
 		// Setup the object being tested by handing what it needs to work
 		rewardNetwork = new RewardNetworkImpl(accountRepo, restaurantRepo, rewardRepo);
+		
+		MonetaryAmount monetaryAmount = new MonetaryAmount(100.0);
+		
+		Dining diningMock = new Dining(monetaryAmount, "1234123412341234", "1234567890", SimpleDate.today());
 	}
 
-	// TODO-10: Test RewardNetworkImpl class
+	// TODO1-10: Test RewardNetworkImpl class
 	// - Remove the @Disabled annotation below.
 	// - Run this JUnit test. Verify it passes.
 	@Test
-	@Disabled
+//	@Disabled
 	public void testRewardForDining() {
 		// create a new dining of 100.00 charged to credit card '1234123412341234' by merchant '123457890' as test input
 		Dining dining = Dining.createDining("100.00", "1234123412341234", "1234567890");
