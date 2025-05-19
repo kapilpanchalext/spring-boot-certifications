@@ -23,7 +23,7 @@ public class RewardsConfig {
 
 	@Autowired
 	DataSource dataSource;
-		
+
 	@Bean
 	public RewardNetwork rewardNetwork(){
 		return new RewardNetworkImpl(
@@ -31,26 +31,26 @@ public class RewardsConfig {
 			restaurantRepository(), 
 			rewardRepository());
 	}
-	
+
 	@Bean
 	public AccountRepository accountRepository(){
 		JdbcAccountRepository repository = new JdbcAccountRepository();
 		repository.setDataSource(dataSource);
 		return repository;
 	}
-	
+
 	@Bean
 	public RestaurantRepository restaurantRepository(){
 		JdbcRestaurantRepository repository = new JdbcRestaurantRepository();
 		repository.setDataSource(dataSource);
 		return repository;
 	}
-	
+
 	@Bean
 	public RewardRepository rewardRepository(){
 		JdbcRewardRepository repository = new JdbcRewardRepository();
 		repository.setDataSource(dataSource);
 		return repository;
 	}
-	
+
 }
