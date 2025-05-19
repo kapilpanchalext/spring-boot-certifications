@@ -4,12 +4,8 @@ import common.datetime.SimpleDate;
 import rewards.AccountContribution;
 import rewards.Dining;
 import rewards.RewardConfirmation;
-
 import javax.sql.DataSource;
-
 import org.springframework.jdbc.core.JdbcTemplate;
-
-import java.sql.*;
 import java.util.List;
 
 /**
@@ -67,13 +63,10 @@ public class JdbcRewardRepository implements RewardRepository {
 
 	private String nextConfirmationNumber() {
 		String sql = "select next value for S_REWARD_CONFIRMATION_NUMBER from DUAL_REWARD_CONFIRMATION_NUMBER";
-		
 		List<String> results = jdbcTemplate.query(sql, (rs, rowNum) -> rs.getString(1));
-
     if (results.isEmpty()) {
         throw new RuntimeException("No confirmation number returned from sequence");
     }
-
     return results.get(0);
 	}
 }

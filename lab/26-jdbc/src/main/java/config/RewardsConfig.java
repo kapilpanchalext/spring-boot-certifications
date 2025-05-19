@@ -34,7 +34,7 @@ public class RewardsConfig {
 
 	@Bean
 	AccountRepository accountRepository(){
-		JdbcAccountRepository repository = new JdbcAccountRepository(dataSource);
+		JdbcAccountRepository repository = new JdbcAccountRepository(dataSource, jdbcTemplate);
 		return repository;
 	}
 
