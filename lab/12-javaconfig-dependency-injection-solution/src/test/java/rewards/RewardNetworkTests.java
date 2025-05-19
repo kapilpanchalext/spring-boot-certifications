@@ -25,7 +25,6 @@ public class RewardNetworkTests {
 	@BeforeEach
 	public void setUp() {
 		// Create the test configuration for the application:
-		
 		ApplicationContext context = SpringApplication.run(TestInfrastructureConfig.class);
 		
 		// Get the bean to use to invoke the application

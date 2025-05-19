@@ -1,9 +1,19 @@
 package config;
 
 import javax.sql.DataSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import rewards.RewardNetwork;
+import rewards.internal.RewardNetworkImpl;
+import rewards.internal.account.AccountRepository;
+import rewards.internal.account.JdbcAccountRepository;
+import rewards.internal.restaurant.JdbcRestaurantRepository;
+import rewards.internal.restaurant.RestaurantRepository;
+import rewards.internal.reward.JdbcRewardRepository;
+import rewards.internal.reward.RewardRepository;
 
 /**
- * TODO-00: In this lab, you are going to exercise the following:
+ * TODO1-00: In this lab, you are going to exercise the following:
  * - Creating Spring configuration class
  * - Defining bean definitions within the configuration class
  * - Specifying the dependency relationships among beans
@@ -11,10 +21,10 @@ import javax.sql.DataSource;
  * - Creating Spring application context in the test code
  *   (WITHOUT using Spring testContext framework)
  *
- * TODO-01: Make this class a Spring configuration class
+ * TODO1-01: Make this class a Spring configuration class
  * - Use an appropriate annotation.
  *
- * TODO-02: Define four empty @Bean methods, one for the
+ * TODO1-02: Define four empty @Bean methods, one for the
  *          reward-network and three for the repositories.
  * - The names of the beans should be:
  *   - rewardNetwork
@@ -22,7 +32,7 @@ import javax.sql.DataSource;
  *   - restaurantRepository
  *   - rewardRepository
  *
- * TODO-03: Inject DataSource through constructor injection
+ * TODO1-03: Inject DataSource through constructor injection
  * - Each repository implementation has a DataSource
  *   property to be set, but the DataSource is defined
  *   elsewhere (TestInfrastructureConfig.java), so you
@@ -30,7 +40,7 @@ import javax.sql.DataSource;
  *   that accepts a DataSource parameter.
  * - As it is the only constructor, @Autowired is optional.
  *
- * TODO-04: Implement each @Bean method to contain the code
+ * TODO1-04: Implement each @Bean method to contain the code
  *          needed to instantiate its object and set its
  *          dependencies
  * - You can create beans from the following implementation classes
@@ -42,9 +52,41 @@ import javax.sql.DataSource;
  *   not an implementation.
  */
 
+@Configuration
 public class RewardsConfig {
-
-	// Set this by adding a constructor.
 	private DataSource dataSource;
 
+	// As this is the only constructor, @Autowired is not needed.
+	public RewardsConfig(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
+		
+	@Bean
+	RewardNetwork rewardNetwork(){
+		return new RewardNetworkImpl(
+			accountRepository(), 
+			restaurantRepository(), 
+			rewardRepository());
+	}
+	
+	@Bean
+	AccountRepository accountRepository(){
+		JdbcAccountRepository repository = new JdbcAccountRepository();
+		repository.setDataSource(dataSource);
+		return repository;
+	}
+	
+	@Bean
+	RestaurantRepository restaurantRepository(){
+		JdbcRestaurantRepository repository = new JdbcRestaurantRepository();
+		repository.setDataSource(dataSource);
+		return repository;
+	}
+	
+	@Bean
+	RewardRepository rewardRepository(){
+		JdbcRewardRepository repository = new JdbcRewardRepository();
+		repository.setDataSource(dataSource);
+		return repository;
+	}
 }
