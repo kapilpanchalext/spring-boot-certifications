@@ -10,6 +10,8 @@ import rewards.internal.restaurant.Restaurant;
 import rewards.internal.restaurant.RestaurantRepository;
 import rewards.internal.reward.RewardRepository;
 
+import org.springframework.stereotype.Component;
+
 import common.money.MonetaryAmount;
 
 /**
@@ -30,14 +32,14 @@ import common.money.MonetaryAmount;
  * - Inject all 3 dependencies.  Decide if you should use field
  *   injection or constructor injection.
  */
-
+@Component
 public class RewardNetworkImpl implements RewardNetwork {
 
-	private AccountRepository accountRepository;
+	private final AccountRepository accountRepository;
 
-	private RestaurantRepository restaurantRepository;
+	private final RestaurantRepository restaurantRepository;
 
-	private RewardRepository rewardRepository;
+	private final RewardRepository rewardRepository;
 
 	/**
 	 * Creates a new reward network.
