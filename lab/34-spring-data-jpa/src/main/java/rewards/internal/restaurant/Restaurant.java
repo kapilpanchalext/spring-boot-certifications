@@ -5,6 +5,10 @@ import common.money.Percentage;
 import rewards.Dining;
 import rewards.internal.account.Account;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 /**
@@ -19,23 +23,31 @@ import javax.persistence.Transient;
 //                            NAME varchar(80) not null,
 //                            BENEFIT_PERCENTAGE decimal(5,2) not null,
 //                            BENEFIT_AVAILABILITY_POLICY varchar(1) not null, unique(MERCHANT_NUMBER));
+@Entity
+@Table(name = "T_RESTAURANT")
 public class Restaurant {
 
+	@Id
+	@Column(name="ID")
 	private Long entityId;
 
+	@Column(name = "MERCHANT_NUMBER", length = 10, nullable = false)
 	private String number;
 
+	@Column(name = "NAME", length = 80, nullable = false)
 	private String name;
 
 	// This is not a simple mapping as Percentage is not a simple type.
 	// You need to map Percentage.value from a column in T_RESTAURANT.  If unsure,
 	// look at how Beneficiary does it.
+	@Column(name = "BENEFIT_PERCENTAGE", nullable = false)
 	private Percentage benefitPercentage;
 
 
 	// DO NOT map this field. For now it is always set to AlwaysAvailable.
 	// The bonus section later will redo this mapping.
 	@Transient
+	@Column(name = "BENEFIT_PERCENTAGE", length = 1, nullable = false, unique = true)
 	private BenefitAvailabilityPolicy benefitAvailabilityPolicy = AlwaysAvailable.INSTANCE;
 
 	public Restaurant() {
