@@ -2,15 +2,12 @@ package rewards.internal;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.springframework.orm.ObjectRetrievalFailureException;
-
 import rewards.Dining;
 import rewards.internal.account.Account;
 import rewards.internal.restaurant.BenefitAvailabilityPolicy;
 import rewards.internal.restaurant.Restaurant;
 import rewards.internal.restaurant.RestaurantRepository;
-
 import common.money.Percentage;
 
 /**

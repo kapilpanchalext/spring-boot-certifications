@@ -5,6 +5,7 @@ import common.money.Percentage;
 import rewards.Dining;
 import rewards.internal.account.Account;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -34,20 +35,18 @@ public class Restaurant {
 	@Column(name = "MERCHANT_NUMBER", length = 10, nullable = false)
 	private String number;
 
-	@Column(name = "NAME", length = 80, nullable = false)
 	private String name;
 
 	// This is not a simple mapping as Percentage is not a simple type.
 	// You need to map Percentage.value from a column in T_RESTAURANT.  If unsure,
 	// look at how Beneficiary does it.
-	@Column(name = "BENEFIT_PERCENTAGE", nullable = false)
+	@AttributeOverride(name="value",column=@Column(name="BENEFIT_PERCENTAGE"))
 	private Percentage benefitPercentage;
 
 
 	// DO NOT map this field. For now it is always set to AlwaysAvailable.
 	// The bonus section later will redo this mapping.
 	@Transient
-	@Column(name = "BENEFIT_PERCENTAGE", length = 1, nullable = false, unique = true)
 	private BenefitAvailabilityPolicy benefitAvailabilityPolicy = AlwaysAvailable.INSTANCE;
 
 	public Restaurant() {

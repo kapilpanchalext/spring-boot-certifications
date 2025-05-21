@@ -1,6 +1,6 @@
 package rewards.internal.restaurant;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.Repository;
 
 /**
  * Loads restaurant aggregates. Called by the reward network to find and reconstitute Restaurant entities from an
@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 // TODO-06: Alter this interface to extend a proper Spring Data interface.
 // - The method name also needs refactoring (renaming) to use Spring Data finder
 //   naming conventions so Spring Data will implement it automatically for you.
-public interface RestaurantRepository extends JpaRepository<Restaurant, Long>{
+public interface RestaurantRepository extends Repository<Restaurant,Long>{
 
 	/**
 	 * Load a Restaurant entity by its merchant number.
